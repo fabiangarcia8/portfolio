@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fabián García Lorenzo — Editor y coach literario</title>
 <meta name="description" content="Informes profesionales de lectura beta, edición de manuscritos y coaching literario para autores.">
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "y5gprnrilz");
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;1,9..144,450;1,9..144,600&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -1537,6 +1544,7 @@
       document.querySelectorAll('.sample-panel').forEach(p=>p.classList.remove('active'));
       tab.classList.add('active');
       document.getElementById(tab.dataset.tab).classList.add('active');
+      if(window.clarity) clarity('event', 'muestra_' + tab.dataset.tab);
     });
   });
 
@@ -1628,8 +1636,18 @@
         });
       }
     }
-    input.addEventListener('input', render);
-    checkboxes.forEach(cb=>cb.addEventListener('change', render));
+    let calcEventSent = false;
+    function trackCalcUse(){
+      if(window.clarity){
+        if(!calcEventSent){
+          clarity('event', 'uso_calculadora_' + service);
+          calcEventSent = true;
+        }
+        clarity('event', 'interaccion_calculadora_' + service);
+      }
+    }
+    input.addEventListener('input', ()=>{ render(); trackCalcUse(); });
+    checkboxes.forEach(cb=>cb.addEventListener('change', ()=>{ render(); trackCalcUse(); }));
   });
 
   document.querySelectorAll('.proj-tab').forEach(tab=>{
@@ -1638,6 +1656,7 @@
       document.querySelectorAll('.edit-project').forEach(p=>p.classList.remove('active'));
       tab.classList.add('active');
       document.getElementById(tab.dataset.proj).classList.add('active');
+      if(window.clarity) clarity('event', 'proyecto_' + tab.dataset.proj);
     });
   });
 
@@ -1648,6 +1667,7 @@
       scope.querySelectorAll('.gdoc-view').forEach(p=>p.classList.remove('active'));
       tab.classList.add('active');
       document.getElementById(tab.dataset.view).classList.add('active');
+      if(window.clarity) clarity('event', 'vista_' + tab.dataset.view);
     });
   });
 
@@ -1657,6 +1677,7 @@
       const block = formToggle.closest('.form-block');
       const isOpen = block.classList.toggle('open');
       formToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      if(isOpen && window.clarity) clarity('event', 'abre_formulario_contacto');
     });
   }
 
@@ -1682,6 +1703,42 @@
     });
   },{threshold:0.12});
   els.forEach(el=>io.observe(el));
+
+  // --- Tracking adicional: CTAs, navegación, redes, volver arriba ---
+  function track(name){ if(window.clarity) clarity('event', name); }
+
+  document.querySelectorAll('.hero-ctas .btn').forEach(btn=>{
+    btn.addEventListener('click', ()=> track('hero_cta_' + btn.textContent.trim().toLowerCase().replace(/\s+/g,'_')));
+  });
+
+  const navCta = document.querySelector('.nav-cta');
+  if(navCta){ navCta.addEventListener('click', ()=> track('nav_cta_escribeme')); }
+
+  document.querySelectorAll('.navlinks a, .mobile-menu a').forEach(a=>{
+    a.addEventListener('click', ()=> track('nav_link_' + a.getAttribute('href').replace('#','')));
+  });
+
+  document.querySelectorAll('a[href*="gumroad.com"]').forEach(a=>{
+    a.addEventListener('click', ()=> track('salida_gumroad'));
+  });
+
+  const socialMap = {'instagram.com':'instagram','tiktok.com':'tiktok','threads.net':'threads'};
+  document.querySelectorAll('.contact a[href]').forEach(a=>{
+    const href = a.getAttribute('href');
+    if(href.startsWith('mailto:')){
+      a.addEventListener('click', ()=> track('contacto_email'));
+    } else {
+      Object.keys(socialMap).forEach(domain=>{
+        if(href.includes(domain)){
+          a.addEventListener('click', ()=> track('contacto_' + socialMap[domain]));
+        }
+      });
+    }
+  });
+
+  const backToTopBtn = document.getElementById('backToTop');
+  if(backToTopBtn){ backToTopBtn.addEventListener('click', ()=> track('volver_arriba')); }
+
 </script>
 
 </body>
