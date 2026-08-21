@@ -188,6 +188,34 @@
   .svc-includes li{font-size:0.9rem;color:#DCE3EA;padding-left:16px;position:relative;}
   .svc-includes li:before{content:"—";position:absolute;left:0;color:var(--blue);}
 
+  .payment-note-short{
+    margin-top:16px;font-size:0.82rem;color:#B9C6D2;
+    font-family:'IBM Plex Mono',monospace;letter-spacing:0.01em;
+  }
+  .payment-note-short a{color:var(--magenta);text-decoration:underline;}
+  .payment-note-short a:hover{color:#fff;}
+  .svc-payment-summary{
+    margin-top:10px;font-size:0.88rem;color:#B9C6D2;
+  }
+  .svc-payment-summary a{color:var(--magenta);text-decoration:underline;}
+  .svc-payment-summary a:hover{color:#fff;}
+
+  /* PAGO */
+  .payment-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:32px;}
+  @media(max-width:640px){.payment-grid{grid-template-columns:1fr;}}
+  .payment-card{
+    border:1px solid rgba(19,46,69,0.12);border-top:3px solid var(--magenta);
+    border-radius:6px;padding:24px 22px;background:#fff;
+  }
+  .pay-tag{
+    font-family:'IBM Plex Mono',monospace;font-size:0.72rem;text-transform:uppercase;
+    letter-spacing:0.05em;color:var(--navy);
+  }
+  .pay-split{font-size:2rem;font-weight:600;color:var(--magenta);margin-top:8px;}
+  .pay-split span{color:var(--navy);opacity:0.4;font-weight:400;font-size:1.3rem;}
+  .pay-desc{margin-top:10px;font-size:0.9rem;color:var(--navy-deep);line-height:1.55;opacity:0.85;}
+  .pay-note{margin-top:24px;font-size:0.85rem;color:var(--navy-deep);opacity:0.65;}
+
   details.pricing{margin-top:22px;border-top:1px solid rgba(255,255,255,0.14);padding-top:16px;}
   details.pricing summary{
     cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:0.78rem;
@@ -651,6 +679,7 @@
       <a href="#sobre-mi">Sobre mí</a>
       <a href="#testimonios">Testimonios</a>
       <a href="#proceso">Proceso</a>
+      <a href="#pago">Pago</a>
     </div>
     <div class="nav-right">
       <a class="nav-cta" href="#contacto">Escríbeme</a>
@@ -666,6 +695,7 @@
       <a href="#sobre-mi">Sobre mí</a>
       <a href="#testimonios">Testimonios</a>
       <a href="#proceso">Proceso</a>
+      <a href="#pago">Pago</a>
       <a href="#contacto">Escríbeme</a>
     </div>
   </div>
@@ -691,6 +721,7 @@
       <p class="eyebrow">Qué hago</p>
       <h2>Tres formas de trabajar juntos</h2>
       <p>Puedes entrar en cualquier punto del proceso: con el manuscrito terminado, a mitad de edición, o antes de haber escrito tu primera palabra.</p>
+      <p class="svc-payment-summary">Todos los servicios se confirman con pago por adelantado. <a href="#pago">Ver cómo funciona el pago</a>.</p>
     </div>
 
     <div class="svc-list">
@@ -707,6 +738,7 @@
             <li>Comparables de mercado para tu obra</li>
             <li>Formulario opcional para tus propios lectores beta</li>
           </ul>
+          <p class="payment-note-short">💳 Pago: 50% al confirmar · 50% a la entrega. <a href="#pago">Ver condiciones</a></p>
           <details class="pricing">
             <summary>Ver tarifas orientativas</summary>
             <div class="table-scroll"><table class="price-table">
@@ -742,6 +774,7 @@
             <li>Edición de desarrollo / estructural</li>
             <li>Reescritura guiada y colaborativa</li>
           </ul>
+          <p class="payment-note-short">💳 Pago: 50% al confirmar · 50% a la entrega. <a href="#pago">Ver condiciones</a></p>
           <details class="pricing">
             <summary>Ver tarifas orientativas</summary>
             <div class="table-scroll"><table class="price-table">
@@ -785,6 +818,7 @@
             <li>Revisión por fases</li>
             <li>Preparación para publicar o presentar a editoriales</li>
           </ul>
+          <p class="payment-note-short">💳 Pago: 100% por adelantado. <a href="#pago">Ver condiciones</a></p>
           <details class="pricing">
             <summary>Ver tarifas orientativas</summary>
             <div class="table-scroll"><table class="price-table">
@@ -1441,17 +1475,40 @@
       <div class="step">
         <p class="stepnum">Presupuesto</p>
         <h3>Confirmas y empezamos</h3>
-        <p>Presupuesto cerrado por escrito antes de recibir tu manuscrito.</p>
+        <p>Presupuesto cerrado por escrito. Empiezo a trabajar al recibir el 50% del pago (100% en coaching).</p>
       </div>
       <div class="step">
         <p class="stepnum">Entrega</p>
         <h3>Recibes tu servicio</h3>
-        <p>Documentos entregados en el plazo acordado, con revisión de dudas incluida.</p>
+        <p>Avance del 50% del trabajo en cuanto está listo. El documento final se entrega al recibir el pago íntegro del servicio.</p>
       </div>
     </div>
   </div>
 </section>
 
+  </div>
+</section>
+
+<section id="pago">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Condiciones</p>
+      <h2>Cómo funciona el pago</h2>
+      <p>Para que el proceso sea transparente de principio a fin.</p>
+    </div>
+    <div class="payment-grid reveal">
+      <div class="payment-card">
+        <p class="pay-tag">Informe beta · Edición</p>
+        <p class="pay-split">50% <span>/</span> 50%</p>
+        <p class="pay-desc">El 50% se abona al confirmar el encargo, antes de empezar. Te envío un avance del 50% del trabajo en cuanto está listo. El 50% restante se abona antes de la entrega, y el documento final se entrega al recibir el pago íntegro.</p>
+      </div>
+      <div class="payment-card">
+        <p class="pay-tag">Coaching literario</p>
+        <p class="pay-split">100%</p>
+        <p class="pay-desc">El importe se abona íntegramente por adelantado, antes de empezar la sesión suelta o el periodo contratado. Los pagos recurrentes (mensuales o por fase) se abonan al inicio de cada periodo.</p>
+      </div>
+    </div>
+    <p class="pay-note">Esto se acuerda por escrito junto con el presupuesto cerrado, antes de que envíes tu manuscrito.</p>
   </div>
 </section>
 
