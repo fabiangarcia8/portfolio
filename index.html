@@ -188,12 +188,6 @@
   .svc-includes li{font-size:0.9rem;color:#DCE3EA;padding-left:16px;position:relative;}
   .svc-includes li:before{content:"—";position:absolute;left:0;color:var(--blue);}
 
-  .payment-note-short{
-    margin-top:16px;font-size:0.82rem;color:#B9C6D2;
-    font-family:'IBM Plex Mono',monospace;letter-spacing:0.01em;
-  }
-  .payment-note-short a{color:var(--magenta);text-decoration:underline;}
-  .payment-note-short a:hover{color:#fff;}
   .svc-payment-summary{
     margin-top:10px;font-size:0.88rem;color:#B9C6D2;
   }
@@ -720,7 +714,7 @@
       <p class="eyebrow">Qué hago</p>
       <h2>Tres formas de trabajar juntos</h2>
       <p>Puedes entrar en cualquier punto del proceso: con el manuscrito terminado, a mitad de edición, o antes de haber escrito tu primera palabra.</p>
-      <p class="svc-payment-summary">Todos los servicios se confirman con pago por adelantado. <a href="#pago">Ver cómo funciona el pago</a>.</p>
+      <p class="svc-payment-summary"><a href="#pago">Ver condiciones</a></p>
     </div>
 
     <div class="svc-list">
@@ -737,16 +731,24 @@
             <li>Comparables de mercado para tu obra</li>
             <li>Formulario opcional para tus propios lectores beta</li>
           </ul>
-          <p class="payment-note-short">💳 Pago: 50% al confirmar · 50% a la entrega. <a href="#pago">Ver condiciones</a></p>
           <details class="pricing">
             <summary>Ver tarifas orientativas</summary>
             <div class="table-scroll"><table class="price-table">
               <tr><th>Modalidad</th><th>Incluye</th><th>Precio</th></tr>
-              <tr><td>Básica</td><td>Informe resumido (impresión general + prioridades)</td><td class="amount">0,001 €/palabra</td></tr>
-              <tr><td>Estándar</td><td>Informe completo de 10 bloques</td><td class="amount">0,002 €/palabra</td></tr>
-              <tr><td>Premium</td><td>Informe completo + sesión de feedback (60 min)</td><td class="amount">0,003 €/palabra</td></tr>
+              <tr><td>Básica</td><td>Informe resumido (impresión general + prioridades)</td><td class="amount">50 € – 200 €</td></tr>
+              <tr><td>Estándar</td><td>Informe completo de 10 bloques</td><td class="amount">90 € – 341 €</td></tr>
+              <tr><td>Premium</td><td>Informe completo + sesión de feedback (60 min)</td><td class="amount">140 € – 484 €</td></tr>
             </table></div>
-            <p class="price-note">Mínimo de proyecto aplicable a manuscritos cortos [30.000 palabras]. Precio final cerrado tras ver una muestra del texto.</p>
+            <p class="price-note">El precio exacto depende de la extensión del manuscrito: la tarifa por palabra baja progresivamente por tramos (ver tabla). Mínimo de proyecto aplicable a manuscritos muy cortos. Precio final cerrado tras ver una muestra del texto.</p>
+            <div class="table-scroll"><table class="price-table">
+              <tr><th>Tramo (palabras)</th><th>Básica</th><th>Estándar</th><th>Premium</th></tr>
+              <tr><td>0 – 20.000</td><td class="amount">0,0035 €/palabra</td><td class="amount">0,006 €/palabra</td><td class="amount">0,0085 €/palabra</td></tr>
+              <tr><td>20.001 – 40.000</td><td class="amount">0,0022 €/palabra</td><td class="amount">0,0037 €/palabra</td><td class="amount">0,0053 €/palabra</td></tr>
+              <tr><td>40.001 – 70.000</td><td class="amount">0,0014 €/palabra</td><td class="amount">0,0024 €/palabra</td><td class="amount">0,0034 €/palabra</td></tr>
+              <tr><td>70.001 – 100.000</td><td class="amount">0,0010 €/palabra</td><td class="amount">0,0017 €/palabra</td><td class="amount">0,0024 €/palabra</td></tr>
+              <tr><td>100.001 – 120.000</td><td class="amount">0,0007 €/palabra</td><td class="amount">0,0012 €/palabra</td><td class="amount">0,0017 €/palabra</td></tr>
+            </table></div>
+            <p class="price-note">Tarifa progresiva por tramos: cada tramo de palabras se cobra a su propia tarifa y se suman, igual que en el IRPF.</p>
             <div class="price-calc" data-service="beta">
               <label>Calcula tu precio estimado</label>
               <div class="calc-input-row">
@@ -773,15 +775,14 @@
             <li>Edición de desarrollo / estructural</li>
             <li>Reescritura guiada y colaborativa</li>
           </ul>
-          <p class="payment-note-short">💳 Pago: 50% al confirmar · 50% a la entrega. <a href="#pago">Ver condiciones</a></p>
           <details class="pricing">
             <summary>Ver tarifas orientativas</summary>
             <div class="table-scroll"><table class="price-table">
               <tr><th>Nivel</th><th>Enfoque</th><th>Precio</th></tr>
-              <tr><td>Ortotipográfica</td><td>Ortografía, puntuación, normas tipográficas</td><td class="amount">0,004 €/palabra</td></tr>
-              <tr><td>Estilo</td><td>Redacción, repeticiones, fluidez, sin modificar la voz del autor</td><td class="amount">0,005 €/palabra</td></tr>
-              <tr><td>Desarrollo / estructural</td><td>Trama, ritmo, arcos de personaje</td><td class="amount">0,006 €/palabra</td></tr>
-              <tr><td>Reescritura guiada</td><td>Intervención directa en el texto, línea a línea</td><td class="amount">0,007 €/palabra</td></tr>
+              <tr><td>Ortotipográfica</td><td>Ortografía, puntuación, normas tipográficas</td><td class="amount">0,006 €/palabra</td></tr>
+              <tr><td>Estilo</td><td>Redacción, repeticiones, fluidez, sin modificar la voz del autor</td><td class="amount">0,01 €/palabra</td></tr>
+              <tr><td>Desarrollo / estructural</td><td>Trama, ritmo, arcos de personaje</td><td class="amount">desde 0,015 €/palabra</td></tr>
+              <tr><td>Reescritura guiada</td><td>Intervención directa en el texto, línea a línea</td><td class="amount">desde 0,02 €/palabra</td></tr>
               <tr><td>Paquete integral</td><td>Combinación de varios niveles</td><td class="amount">a medida</td></tr>
             </table></div>
             <p class="price-note">Combinar varios niveles aplica un descuento sobre la suma. Mínimo de proyecto aplicable a textos cortos (relatos, capítulos sueltos) [5000 palabras]. Precio final cerrado tras ver una muestra del texto.</p>
@@ -817,7 +818,6 @@
             <li>Revisión por fases</li>
             <li>Preparación para publicar o presentar a editoriales</li>
           </ul>
-          <p class="payment-note-short">💳 Pago: 100% por adelantado. <a href="#pago">Ver condiciones</a></p>
           <details class="pricing">
             <summary>Ver tarifas orientativas</summary>
             <div class="table-scroll"><table class="price-table">
@@ -1619,21 +1619,44 @@
   });
 
   const CALC_DATA = {
-    beta: [
-      {name:'Básica', rate:0.001, min:30},
-      {name:'Estándar', rate:0.002, min:50},
-      {name:'Premium', rate:0.003, min:80},
-    ],
+    beta: {
+      tiers: ['Básica', 'Estándar', 'Premium'],
+      mins: [50, 90, 140],
+      brackets: [
+        {max:20000,  rates:[0.0035, 0.006,  0.0085]},
+        {max:40000,  rates:[0.0022, 0.0037, 0.0053]},
+        {max:70000,  rates:[0.0014, 0.0024, 0.0034]},
+        {max:100000, rates:[0.0010, 0.0017, 0.0024]},
+        {max:120000, rates:[0.0007, 0.0012, 0.0017]},
+      ],
+    },
     edicion: [
-      {name:'Ortotipográfica', rate:0.004, min:20},
-      {name:'Estilo', rate:0.005, min:30},
-      {name:'Desarrollo / estructural', rate:0.006, min:40},
-      {name:'Reescritura guiada', rate:0.007, min:50},
+      {name:'Ortotipográfica', rate:0.006, min:20},
+      {name:'Estilo', rate:0.01, min:30},
+      {name:'Desarrollo / estructural', rate:0.015, min:40},
+      {name:'Reescritura guiada', rate:0.02, min:50},
     ]
   };
 
+  // Progressive bracket pricing (like income-tax brackets): each word-count
+  // bracket is charged at its own rate, and the results are summed.
+  function bracketPrice(words, brackets, tierIndex){
+    let total = 0, prevMax = 0;
+    for(const b of brackets){
+      if(words > b.max){
+        total += (b.max - prevMax) * b.rates[tierIndex];
+        prevMax = b.max;
+      } else {
+        total += (words - prevMax) * b.rates[tierIndex];
+        prevMax = words;
+        break;
+      }
+    }
+    return total;
+  }
+
   const CALC_THRESHOLD = 120000;
-  const COMBO_DISCOUNT = {1:0, 2:0.10, 3:0.15, 4:0.20};
+  const COMBO_DISCOUNT = {1:0, 2:0.05, 3:0.10, 4:0.15};
 
   function formatEUR(n){
     return n.toLocaleString('es-ES',{maximumFractionDigits:0}) + ' €';
@@ -1641,7 +1664,8 @@
 
   document.querySelectorAll('.price-calc').forEach(calc=>{
     const service = calc.dataset.service;
-    const rows = CALC_DATA[service] || [];
+    const data = CALC_DATA[service];
+    const rows = Array.isArray(data) ? data : [];
     const input = calc.querySelector('.calc-input');
     const results = calc.querySelector('.calc-results');
     const checkboxes = calc.querySelectorAll('.calc-checks input[type="checkbox"]');
@@ -1658,7 +1682,16 @@
         return;
       }
 
-      if(checkboxes.length){
+      if(service === 'beta'){
+        // Progressive calculator (informe beta): sum each bracket's own rate.
+        data.tiers.forEach((tierName, i)=>{
+          const price = Math.max(bracketPrice(words, data.brackets, i), data.mins[i]);
+          const row = document.createElement('div');
+          row.className = 'calc-row';
+          row.innerHTML = `<span>${tierName}</span><span class="calc-price">${formatEUR(price)}</span>`;
+          results.appendChild(row);
+        });
+      } else if(checkboxes.length){
         // Combinable calculator (edición): sum selected levels with a bundle discount.
         const selected = Array.from(checkboxes).filter(c=>c.checked).map(c=>rows[parseInt(c.value,10)]);
         if(!selected.length){
@@ -1678,7 +1711,7 @@
           row.innerHTML = `<span>${r.name}</span><span class="calc-price">${formatEUR(price)}</span>`;
           results.appendChild(row);
         });
-        const discountRate = COMBO_DISCOUNT[selected.length] ?? 0.20;
+        const discountRate = COMBO_DISCOUNT[selected.length] ?? 0.15;
         if(discountRate > 0){
           const subRow = document.createElement('div');
           subRow.className = 'calc-row calc-subtotal';
