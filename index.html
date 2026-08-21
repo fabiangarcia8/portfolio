@@ -200,21 +200,20 @@
   .svc-payment-summary a{color:var(--magenta);text-decoration:underline;}
   .svc-payment-summary a:hover{color:#fff;}
 
-  /* PAGO */
-  .payment-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:32px;}
-  @media(max-width:640px){.payment-grid{grid-template-columns:1fr;}}
-  .payment-card{
-    border:1px solid rgba(19,46,69,0.12);border-top:3px solid var(--magenta);
-    border-radius:6px;padding:24px 22px;background:#fff;
+  /* PAGO / CONDICIONES */
+  .cond-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:32px;}
+  @media(max-width:640px){.cond-grid{grid-template-columns:1fr;}}
+  .cond-card{
+    border:1px solid var(--card-line);border-left:3px solid var(--magenta);
+    border-radius:6px;padding:20px 22px;background:var(--card-bg);
+    box-shadow:0 16px 34px -22px rgba(0,0,0,0.55);
   }
-  .pay-tag{
+  .cond-tag{
     font-family:'IBM Plex Mono',monospace;font-size:0.72rem;text-transform:uppercase;
-    letter-spacing:0.05em;color:var(--navy);
+    letter-spacing:0.05em;color:var(--magenta);
   }
-  .pay-split{font-size:2rem;font-weight:600;color:var(--magenta);margin-top:8px;}
-  .pay-split span{color:var(--navy);opacity:0.4;font-weight:400;font-size:1.3rem;}
-  .pay-desc{margin-top:10px;font-size:0.9rem;color:var(--navy-deep);line-height:1.55;opacity:0.85;}
-  .pay-note{margin-top:24px;font-size:0.85rem;color:var(--navy-deep);opacity:0.65;}
+  .cond-desc{margin-top:8px;font-size:0.92rem;color:var(--card-ink);line-height:1.55;opacity:0.85;}
+  .pay-note{margin-top:24px;font-size:0.85rem;color:var(--ink-soft);opacity:0.85;}
 
   details.pricing{margin-top:22px;border-top:1px solid rgba(255,255,255,0.14);padding-top:16px;}
   details.pricing summary{
@@ -1493,22 +1492,36 @@
   <div class="wrap">
     <div class="section-head reveal">
       <p class="eyebrow">Condiciones</p>
-      <h2>Cómo funciona el pago</h2>
-      <p>Para que el proceso sea transparente de principio a fin.</p>
+      <h2>Así funciona el proceso</h2>
+      <p>Un resumen de cómo trabajamos, de principio a fin. Las condiciones completas se entregan por escrito junto con cada presupuesto.</p>
     </div>
-    <div class="payment-grid reveal">
-      <div class="payment-card">
-        <p class="pay-tag">Informe beta · Edición</p>
-        <p class="pay-split">50% <span>/</span> 50%</p>
-        <p class="pay-desc">El 50% se abona al confirmar el encargo, antes de empezar. Te envío un avance del 50% del trabajo en cuanto está listo. El 50% restante se abona antes de la entrega, y el documento final se entrega al recibir el pago íntegro.</p>
+    <div class="cond-grid reveal">
+      <div class="cond-card">
+        <p class="cond-tag">Presupuesto cerrado</p>
+        <p class="cond-desc">Reviso una muestra de tu manuscrito y te envío un presupuesto cerrado: servicio, plazo estimado y condiciones de pago, antes de empezar nada.</p>
       </div>
-      <div class="payment-card">
-        <p class="pay-tag">Coaching literario</p>
-        <p class="pay-split">100%</p>
-        <p class="pay-desc">El importe se abona íntegramente por adelantado, antes de empezar la sesión suelta o el periodo contratado. Los pagos recurrentes (mensuales o por fase) se abonan al inicio de cada periodo.</p>
+      <div class="cond-card">
+        <p class="cond-tag">Plazos y entrega</p>
+        <p class="cond-desc">El plazo se fija en el presupuesto según la extensión del texto. La entrega es siempre en digital: Word con cambios, PDF o el formato que acordemos.</p>
+      </div>
+      <div class="cond-card">
+        <p class="cond-tag">Resolución de dudas</p>
+        <p class="cond-desc">Tras la entrega, tienes un periodo para consultarme dudas concretas sobre el contenido recibido. No incluye una nueva ronda de trabajo.</p>
+      </div>
+      <div class="cond-card">
+        <p class="cond-tag">Cancelación</p>
+        <p class="cond-desc">Puedes cancelar cuando quieras, por escrito. Si el trabajo ya ha comenzado, el pago inicial no es reembolsable, ya que corresponde al tiempo dedicado.</p>
+      </div>
+      <div class="cond-card">
+        <p class="cond-tag">Confidencialidad</p>
+        <p class="cond-desc">Tu manuscrito es y sigue siendo tuyo. No lo comparto con terceros ni lo uso para nada que no sea el servicio contratado.</p>
+      </div>
+      <div class="cond-card">
+        <p class="cond-tag">Comunicación</p>
+        <p class="cond-desc">Todo el proceso (presupuesto, dudas, entregas) se gestiona por email, salvo que acordemos otro canal contigo.</p>
       </div>
     </div>
-    <p class="pay-note">Esto se acuerda por escrito junto con el presupuesto cerrado, antes de que envíes tu manuscrito.</p>
+    <p class="pay-note">Al confirmar por escrito tu presupuesto, se entienden aceptadas las condiciones completas del servicio, que recibirás en ese mismo momento.</p>
   </div>
 </section>
 
