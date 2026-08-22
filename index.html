@@ -475,6 +475,10 @@
   .leadmagnet-msg.show{display:block;}
   .leadmagnet-msg.ok{color:#7FCB9A;}
   .leadmagnet-msg.err{color:#E38080;}
+  .leadmagnet-consent{margin-bottom:16px;}
+  .leadmagnet-checkbox{display:flex;align-items:flex-start;gap:9px;cursor:pointer;}
+  .leadmagnet-checkbox input{width:16px;height:16px;margin-top:2px;accent-color:var(--magenta);flex-shrink:0;cursor:pointer;}
+  .leadmagnet-checkbox span{font-size:0.82rem;color:var(--ink-soft);line-height:1.45;}
   .resource-subhead{
     font-family:'IBM Plex Mono',monospace;font-size:0.72rem;text-transform:uppercase;
     letter-spacing:0.08em;color:var(--accent-light);margin:0 0 18px;
@@ -964,6 +968,12 @@
       <div class="leadmagnet-field">
         <label for="lmEmail">Email</label>
         <input type="email" id="lmEmail" name="email" required autocomplete="email">
+      </div>
+      <div class="leadmagnet-field leadmagnet-consent">
+        <label class="leadmagnet-checkbox">
+          <input type="checkbox" id="lmConsent" name="consent" required>
+          <span>Acepto recibir la guía y contenido para autores por email. Puedes darte de baja cuando quieras.</span>
+        </label>
       </div>
       <button type="submit" class="leadmagnet-submit" id="leadMagnetSubmit">Enviarme la guía</button>
       <p class="leadmagnet-msg" id="leadMagnetMsg"></p>
@@ -1937,10 +1947,11 @@
       e.preventDefault();
       const nombre = form.nombre.value.trim();
       const email = form.email.value.trim();
+      const consent = form.consent.checked;
       msg.className = 'leadmagnet-msg';
 
-      if(!nombre || !email){
-        msg.textContent = 'Rellena nombre y email para recibir la guía.';
+      if(!nombre || !email || !consent){
+        msg.textContent = 'Rellena tus datos y acepta recibir los emails para continuar.';
         msg.classList.add('show','err');
         return;
       }
