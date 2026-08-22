@@ -433,6 +433,48 @@
     color:var(--ink);background:rgba(255,255,255,0.08);border:1px solid var(--line);
     padding:12px 20px;border-radius:4px;white-space:nowrap;
   }
+  button.free-guide{cursor:pointer;font:inherit;text-align:left;width:100%;}
+
+  /* LEAD MAGNET MODAL (formulario nombre+email para la guía gratuita) */
+  .leadmagnet-overlay{
+    position:fixed;inset:0;background:rgba(15,27,38,0.82);backdrop-filter:blur(3px);
+    display:flex;align-items:center;justify-content:center;padding:20px;z-index:1000;
+    opacity:0;visibility:hidden;transition:opacity .2s ease,visibility .2s ease;
+  }
+  .leadmagnet-overlay.open{opacity:1;visibility:visible;}
+  .leadmagnet-modal{
+    background:var(--paper-dim);border:1px solid var(--line);border-radius:10px;
+    padding:32px;max-width:420px;width:100%;position:relative;
+    box-shadow:0 20px 60px -12px rgba(0,0,0,0.6);
+  }
+  .leadmagnet-modal h3{margin:0 0 8px;color:var(--ink);font-size:1.3rem;}
+  .leadmagnet-modal>p{color:var(--ink-soft);font-size:0.92rem;margin:0 0 20px;}
+  .leadmagnet-close{
+    position:absolute;top:14px;right:14px;background:none;border:none;color:var(--ink-soft);
+    font-size:1.4rem;cursor:pointer;line-height:1;padding:4px;
+  }
+  .leadmagnet-close:hover{color:var(--ink);}
+  .leadmagnet-field{margin-bottom:14px;}
+  .leadmagnet-field label{
+    display:block;font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--ink-soft);
+    margin-bottom:6px;letter-spacing:0.04em;text-transform:uppercase;
+  }
+  .leadmagnet-field input{
+    width:100%;padding:11px 14px;border-radius:4px;border:1px solid var(--line);
+    background:rgba(255,255,255,0.05);color:var(--ink);font-family:'Inter',sans-serif;font-size:0.95rem;
+  }
+  .leadmagnet-field input:focus{outline:none;border-color:var(--magenta);}
+  .leadmagnet-submit{
+    width:100%;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:0.88rem;
+    background:var(--magenta);color:#fff;border:none;padding:13px;border-radius:4px;cursor:pointer;
+    transition:background .2s;
+  }
+  .leadmagnet-submit:hover{background:#c23e79;}
+  .leadmagnet-submit:disabled{opacity:0.6;cursor:default;}
+  .leadmagnet-msg{font-size:0.85rem;margin-top:12px;display:none;}
+  .leadmagnet-msg.show{display:block;}
+  .leadmagnet-msg.ok{color:#7FCB9A;}
+  .leadmagnet-msg.err{color:#E38080;}
   .resource-subhead{
     font-family:'IBM Plex Mono',monospace;font-size:0.72rem;text-transform:uppercase;
     letter-spacing:0.08em;color:var(--accent-light);margin:0 0 18px;
@@ -845,14 +887,14 @@
       <p>Si todavía no es el momento de contratar un servicio a medida, estos recursos recogen la misma metodología, para que la apliques tú mismo.</p>
     </div>
 
-    <a class="free-guide reveal" href="https://fabiangarcialorenzo.gumroad.com/l/nxesc" target="_blank" rel="noopener">
+    <button type="button" class="free-guide reveal" id="leadMagnetTrigger">
       <div>
         <span class="fg-tag">Gratis</span>
         <h3>252 Adjetivos con Sombra</h3>
         <p>252 rasgos organizados por el sistema de alineamientos morales, cada uno con su «sombra»: en qué se transforma ese rasgo bajo presión. La semilla de un flaw real en 30 segundos. Complemento directo de la guía para autores «Crea tus personajes».</p>
       </div>
       <span class="fg-cta">Descargar gratis →</span>
-    </a>
+    </button>
 
     <p class="resource-subhead reveal">Guías para autores</p>
     <div class="guides-grid reveal">
@@ -908,6 +950,26 @@
     </div>
   </div>
 </section>
+
+<div class="leadmagnet-overlay" id="leadMagnetOverlay">
+  <div class="leadmagnet-modal" role="dialog" aria-modal="true" aria-labelledby="leadMagnetTitle">
+    <button type="button" class="leadmagnet-close" id="leadMagnetClose" aria-label="Cerrar">×</button>
+    <h3 id="leadMagnetTitle">Recibe «252 Adjetivos con Sombra»</h3>
+    <p>Déjame tu nombre y tu email y te mando ahora mismo el enlace de descarga.</p>
+    <form id="leadMagnetForm" novalidate>
+      <div class="leadmagnet-field">
+        <label for="lmNombre">Nombre</label>
+        <input type="text" id="lmNombre" name="nombre" required autocomplete="given-name">
+      </div>
+      <div class="leadmagnet-field">
+        <label for="lmEmail">Email</label>
+        <input type="email" id="lmEmail" name="email" required autocomplete="email">
+      </div>
+      <button type="submit" class="leadmagnet-submit" id="leadMagnetSubmit">Enviarme la guía</button>
+      <p class="leadmagnet-msg" id="leadMagnetMsg"></p>
+    </form>
+  </div>
+</div>
 
 <section class="sample" id="muestra">
   <div class="wrap">
@@ -1841,6 +1903,76 @@
 
   const backToTopBtn = document.getElementById('backToTop');
   if(backToTopBtn){ backToTopBtn.addEventListener('click', ()=> track('volver_arriba')); }
+
+  /* ---- Lead magnet: formulario "252 Adjetivos con Sombra" ---- */
+  (function(){
+    // TODO: pega aquí la URL de tu Web App de Apps Script (termina en /exec)
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwxuzbSDR53Bwihd18yKzSha-aPzNm0wGBBsBZ2FMdWufmwvfUr9VyszXgCV1XeUhXzpg/exec';
+
+    const trigger = document.getElementById('leadMagnetTrigger');
+    const overlay = document.getElementById('leadMagnetOverlay');
+    const closeBtn = document.getElementById('leadMagnetClose');
+    const form = document.getElementById('leadMagnetForm');
+    const msg = document.getElementById('leadMagnetMsg');
+    const submitBtn = document.getElementById('leadMagnetSubmit');
+    if(!trigger || !overlay || !form) return;
+
+    function openModal(){
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      track('abrir_formulario_guia_gratis');
+      document.getElementById('lmNombre').focus();
+    }
+    function closeModal(){
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    trigger.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', (e)=>{ if(e.target === overlay) closeModal(); });
+    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && overlay.classList.contains('open')) closeModal(); });
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      const nombre = form.nombre.value.trim();
+      const email = form.email.value.trim();
+      msg.className = 'leadmagnet-msg';
+
+      if(!nombre || !email){
+        msg.textContent = 'Rellena nombre y email para recibir la guía.';
+        msg.classList.add('show','err');
+        return;
+      }
+      if(APPS_SCRIPT_URL.indexOf('PEGA_AQUI') !== -1){
+        msg.textContent = 'Formulario sin conectar todavía (falta la URL de Apps Script).';
+        msg.classList.add('show','err');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Enviando…';
+
+      const body = new URLSearchParams({ nombre, email });
+
+      fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', body })
+        .then(()=>{
+          // Con mode:'no-cors' el navegador no nos deja leer la respuesta,
+          // así que si el fetch no lanza error asumimos que ha ido bien.
+          msg.textContent = '¡Listo! Revisa tu correo (y la carpeta de spam) para descargar la guía.';
+          msg.classList.add('show','ok');
+          submitBtn.textContent = 'Enviado ✓';
+          track('lead_guia_gratis_enviado');
+          form.reset();
+        })
+        .catch(()=>{
+          msg.textContent = 'Ha ocurrido un error de conexión. Inténtalo de nuevo en unos segundos.';
+          msg.classList.add('show','err');
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Enviarme la guía';
+        });
+    });
+  })();
 
 </script>
 
