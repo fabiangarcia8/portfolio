@@ -12,6 +12,14 @@
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "y5gprnrilz");
 </script>
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-148JJYL9KW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-148JJYL9KW');
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;1,9..144,450;1,9..144,600&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -1686,7 +1694,7 @@
       document.querySelectorAll('.sample-panel').forEach(p=>p.classList.remove('active'));
       tab.classList.add('active');
       document.getElementById(tab.dataset.tab).classList.add('active');
-      if(window.clarity) clarity('event', 'muestra_' + tab.dataset.tab);
+      track('muestra_' + tab.dataset.tab);
     });
   });
 
@@ -1813,13 +1821,11 @@
     }
     let calcEventSent = false;
     function trackCalcUse(){
-      if(window.clarity){
-        if(!calcEventSent){
-          clarity('event', 'uso_calculadora_' + service);
-          calcEventSent = true;
-        }
-        clarity('event', 'interaccion_calculadora_' + service);
+      if(!calcEventSent){
+        track('uso_calculadora_' + service);
+        calcEventSent = true;
       }
+      track('interaccion_calculadora_' + service);
     }
     input.addEventListener('input', ()=>{ render(); trackCalcUse(); });
     checkboxes.forEach(cb=>cb.addEventListener('change', ()=>{ render(); trackCalcUse(); }));
@@ -1831,7 +1837,7 @@
       document.querySelectorAll('.edit-project').forEach(p=>p.classList.remove('active'));
       tab.classList.add('active');
       document.getElementById(tab.dataset.proj).classList.add('active');
-      if(window.clarity) clarity('event', 'proyecto_' + tab.dataset.proj);
+      track('proyecto_' + tab.dataset.proj);
     });
   });
 
@@ -1842,7 +1848,7 @@
       scope.querySelectorAll('.gdoc-view').forEach(p=>p.classList.remove('active'));
       tab.classList.add('active');
       document.getElementById(tab.dataset.view).classList.add('active');
-      if(window.clarity) clarity('event', 'vista_' + tab.dataset.view);
+      track('vista_' + tab.dataset.view);
     });
   });
 
@@ -1852,7 +1858,7 @@
       const block = formToggle.closest('.form-block');
       const isOpen = block.classList.toggle('open');
       formToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-      if(isOpen && window.clarity) clarity('event', 'abre_formulario_contacto');
+      if(isOpen) track('abre_formulario_contacto');
     });
   }
 
@@ -1880,7 +1886,10 @@
   els.forEach(el=>io.observe(el));
 
   // --- Tracking adicional: CTAs, navegación, redes, volver arriba ---
-  function track(name){ if(window.clarity) clarity('event', name); }
+  function track(name, params){
+    if(window.clarity) clarity('event', name);
+    if(window.gtag) gtag('event', name, params || {});
+  }
 
   document.querySelectorAll('.hero-ctas .btn').forEach(btn=>{
     btn.addEventListener('click', ()=> track('hero_cta_' + btn.textContent.trim().toLowerCase().replace(/\s+/g,'_')));
