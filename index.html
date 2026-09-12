@@ -654,12 +654,105 @@
   footer{padding:32px 0;text-align:center;}
   footer p{font-family:'IBM Plex Mono',monospace;font-size:0.75rem;color:var(--ink-soft);}
 
-  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease, transform .7s ease;}
-  .reveal.in{opacity:1;transform:translateY(0);}
+  .reveal{
+    opacity:0;transform:translateY(28px) scale(0.98);filter:blur(4px);
+    transition:opacity .8s cubic-bezier(.16,.8,.24,1), transform .8s cubic-bezier(.16,.8,.24,1), filter .8s cubic-bezier(.16,.8,.24,1);
+    transition-delay:calc(var(--d,0) * 70ms);
+  }
+  .reveal.in{opacity:1;transform:translateY(0) scale(1);filter:blur(0);}
+
+  /* SCROLL PROGRESS BAR */
+  #scrollProgress{
+    position:fixed;top:0;left:0;height:3px;width:0%;z-index:1001;
+    background:linear-gradient(90deg, var(--blue), var(--magenta));
+    transition:width .1s linear;
+    box-shadow:0 0 8px rgba(214,78,138,0.5);
+  }
+
+  /* NAV SCROLLED STATE */
+  nav{transition:background .3s ease, box-shadow .3s ease, border-color .3s ease;}
+  nav.scrolled{box-shadow:0 8px 24px -18px rgba(0,0,0,0.6);}
+
+  /* ANIMATED NAV UNDERLINE */
+  .navlinks a{position:relative;}
+  .navlinks a::after{
+    content:"";position:absolute;left:0;right:100%;bottom:-4px;height:2px;
+    background:linear-gradient(90deg, var(--blue), var(--magenta));
+    transition:right .28s cubic-bezier(.16,.8,.24,1);
+  }
+  .navlinks a:hover::after{right:0;}
+
+  /* BUTTON SHEEN SWEEP */
+  .btn-primary, .nav-cta, .n-cta{position:relative;overflow:hidden;}
+  .btn-primary::before, .nav-cta::before, .n-cta::before{
+    content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;
+    background:linear-gradient(115deg, transparent, rgba(255,255,255,0.35), transparent);
+    transform:skewX(-18deg);transition:left .55s ease;
+  }
+  .btn-primary:hover::before, .nav-cta:hover::before, .n-cta:hover::before{left:130%;}
+
+  /* TILT CARDS */
+  .tilt-card{transition:transform .25s ease, box-shadow .25s ease;transform-style:preserve-3d;will-change:transform;}
+
+  /* HERO ENTRANCE */
+  .hero-centered .eyebrow, .hero-centered h1, .hero-centered p.lede, .hero-centered .hero-ctas{
+    opacity:0;animation:heroIn .8s cubic-bezier(.16,.8,.24,1) forwards;
+  }
+  .hero-centered .eyebrow{animation-delay:.05s;}
+  .hero-centered h1{animation-delay:.18s;}
+  .hero-centered p.lede{animation-delay:.34s;}
+  .hero-centered .hero-ctas{animation-delay:.5s;}
+  @keyframes heroIn{
+    from{opacity:0;transform:translateY(22px);}
+    to{opacity:1;transform:translateY(0);}
+  }
+
+  /* HERO AMBIENT BLOBS */
+  .hero{position:relative;}
+  .hero::before, .hero::after{
+    content:"";position:absolute;border-radius:50%;filter:blur(70px);opacity:0.22;
+    z-index:0;pointer-events:none;
+  }
+  .hero::before{
+    width:340px;height:340px;background:var(--magenta);top:-120px;left:8%;
+    animation:blobFloat1 14s ease-in-out infinite;
+  }
+  .hero::after{
+    width:300px;height:300px;background:var(--blue);bottom:-140px;right:10%;
+    animation:blobFloat2 16s ease-in-out infinite;
+  }
+  .hero .wrap{position:relative;z-index:1;}
+  @keyframes blobFloat1{
+    0%,100%{transform:translate(0,0) scale(1);}
+    50%{transform:translate(40px,30px) scale(1.12);}
+  }
+  @keyframes blobFloat2{
+    0%,100%{transform:translate(0,0) scale(1);}
+    50%{transform:translate(-30px,-24px) scale(1.08);}
+  }
+
+  /* ANIMATED COUNTER */
+  .fact .num{transition:none;}
+
+  /* TAB PANEL CROSSFADE */
+  .sample-panel, .edit-project, .gdoc-view{
+    animation:panelIn .45s cubic-bezier(.16,.8,.24,1);
+  }
+  @keyframes panelIn{
+    from{opacity:0;transform:translateY(10px);}
+    to{opacity:1;transform:translateY(0);}
+  }
 
   @media (prefers-reduced-motion: reduce){
     html{scroll-behavior:auto;}
-    .reveal{opacity:1;transform:none;transition:none;}
+    .reveal{opacity:1;transform:none;filter:none;transition:none;}
+    .hero-centered .eyebrow, .hero-centered h1, .hero-centered p.lede, .hero-centered .hero-ctas{opacity:1;animation:none;}
+    .hero::before, .hero::after{animation:none;}
+    .sample-panel, .edit-project, .gdoc-view{animation:none;}
+    .tilt-card{transition:none;}
+  }
+  @media(max-width:640px){
+    .hero::before, .hero::after{display:none;}
   }
 
   /* MOBILE REFINEMENTS */
@@ -711,6 +804,7 @@
 </style>
 </head>
 <body>
+<div id="scrollProgress"></div>
 <button id="backToTop" aria-label="Volver al inicio" title="Volver al inicio">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
 </button>
@@ -772,7 +866,7 @@
     </div>
 
     <div class="svc-list">
-      <article class="svc reveal">
+      <article class="svc reveal tilt-card">
         <div>
           <p class="svc-tag">Servicio 01</p>
           <h3>Informe de lectura beta profesional</h3>
@@ -816,7 +910,7 @@
         </div>
       </article>
 
-      <article class="svc reveal">
+      <article class="svc reveal tilt-card">
         <div>
           <p class="svc-tag">Servicio 02</p>
           <h3>Edición de manuscritos</h3>
@@ -859,7 +953,7 @@
         </div>
       </article>
 
-      <article class="svc reveal">
+      <article class="svc reveal tilt-card">
         <div>
           <p class="svc-tag">Servicio 03</p>
           <h3>Coaching literario</h3>
@@ -910,7 +1004,7 @@
 
     <p class="resource-subhead reveal">Guías para autores</p>
     <div class="guides-grid reveal">
-      <article class="guide-card">
+      <article class="guide-card tilt-card">
         <div class="g-title">Construye tu Saga</div>
         <p class="g-desc">Cómo diseñar un universo lo suficientemente grande para nutrir varios libros sin perder coherencia: estructura de saga abierta vs cerrada, y subtramas que pagan en libros futuros.</p>
         <div class="g-footer">
@@ -918,7 +1012,7 @@
           <a class="g-link" href="https://fabiangarcialorenzo.gumroad.com/l/emjrkp" target="_blank" rel="noopener">Ver en Gumroad →</a>
         </div>
       </article>
-      <article class="guide-card">
+      <article class="guide-card tilt-card">
         <div class="g-title">Crea tus personajes</div>
         <p class="g-desc">Las 7 Preguntas Fundamentales y la Trinidad Dramática (deseo-necesidad-flaw) para construir personajes con voz propia.</p>
         <div class="g-footer">
@@ -926,7 +1020,7 @@
           <a class="g-link" href="https://fabiangarcialorenzo.gumroad.com/l/jzvrg" target="_blank" rel="noopener">Ver en Gumroad →</a>
         </div>
       </article>
-      <article class="guide-card">
+      <article class="guide-card tilt-card">
         <div class="g-title">Crea tu Sistema de Magia</div>
         <p class="g-desc">7 pasos para diseñar costes, límites y consecuencias, de forma que tu sistema de magia genere drama en lugar de resolver conflictos de forma sencilla.</p>
         <div class="g-footer">
@@ -937,7 +1031,7 @@
     </div>
 
     <p class="resource-subhead reveal">Sistema en Notion</p>
-    <div class="notion-card reveal">
+    <div class="notion-card reveal tilt-card">
       <div>
         <span class="n-tag">Notion · para sagas completas</span>
         <h3>Sistema «Construye Tu Universo»</h3>
@@ -1014,7 +1108,7 @@
         </dl>
         <p class="sample-brief">El reto aquí: un giro de género en el tercer acto (de misterio de contacto extraterrestre a drama existencial) que había que evaluar sin romper la promesa hecha al lector durante 22 capítulos.</p>
       </div>
-      <div class="report-card">
+      <div class="report-card tilt-card">
         <div class="rc-head"><span>Informe de lectura beta</span><span>10 bloques · confidencial</span></div>
         <div class="rc-grid">
           <div class="rc-block">
@@ -1046,7 +1140,7 @@
         </dl>
         <p class="sample-brief">Un ritmo altísimo sostenido durante casi 20.000 palabras, con un problema estructural evidente desde el bloque de ritmo hasta el de trama: el manuscrito nunca llega a tener un final real.</p>
       </div>
-      <div class="report-card">
+      <div class="report-card tilt-card">
         <div class="rc-head"><span>Informe de lectura beta</span><span>10 bloques · confidencial</span></div>
         <div class="rc-grid">
           <div class="rc-block">
@@ -1078,7 +1172,7 @@
         </dl>
         <p class="sample-brief">Una lectura beta pensada para un borrador en marcha, no un manuscrito cerrado: el informe se ajusta a lo que sí puede evaluarse en esta fase, y marca explícitamente lo que todavía es pronto para valorar.</p>
       </div>
-      <div class="report-card">
+      <div class="report-card tilt-card">
         <div class="rc-head"><span>Informe de lectura beta</span><span>lectura parcial · confidencial</span></div>
         <div class="rc-grid">
           <div class="rc-block">
@@ -1110,7 +1204,7 @@
         </dl>
         <p class="sample-brief">Una premisa que fácilmente podría haberse quedado en un chiste de una sola nota, sostenida en cambio como columna temática real: vergüenza, homofobia y comunidad. El reto: casi mil páginas de extensión que desembocan en un final que no cierra ninguna trama mayor.</p>
       </div>
-      <div class="report-card">
+      <div class="report-card tilt-card">
         <div class="rc-head"><span>Informe de lectura beta</span><span>10 bloques · confidencial</span></div>
         <div class="rc-grid">
           <div class="rc-block">
@@ -1142,7 +1236,7 @@
         </dl>
         <p class="sample-brief">Una novela terminada que conecta todos sus hilos (sistema de castas, revuelta social, misterio de identidad) en un desenlace que cumple casi todo lo que promete. El reto: pulir un tic de prosa somática muy repetido y resolver un par de inconsistencias de continuidad antes de publicar.</p>
       </div>
-      <div class="report-card">
+      <div class="report-card tilt-card">
         <div class="rc-head"><span>Informe de lectura beta</span><span>10 bloques · confidencial</span></div>
         <div class="rc-grid">
           <div class="rc-block">
@@ -1516,7 +1610,7 @@
 
 <section class="about" id="sobre-mi">
   <div class="wrap">
-    <div class="about-visual reveal">
+    <div class="about-visual reveal tilt-card">
       <img src="assets/fabian.png" alt="Fabián García Lorenzo">
       <div class="accent-bar"></div>
     </div>
@@ -1576,27 +1670,27 @@
       <p>Un resumen de cómo trabajamos, de principio a fin. Las condiciones completas se entregan por escrito junto con cada presupuesto.</p>
     </div>
     <div class="cond-grid reveal">
-      <div class="cond-card">
+      <div class="cond-card tilt-card">
         <p class="cond-tag">Presupuesto cerrado</p>
         <p class="cond-desc">Reviso una muestra de tu manuscrito y te envío un presupuesto cerrado: servicio, plazo estimado y condiciones de pago, antes de empezar nada.</p>
       </div>
-      <div class="cond-card">
+      <div class="cond-card tilt-card">
         <p class="cond-tag">Plazos y entrega</p>
         <p class="cond-desc">El plazo se fija en el presupuesto según la extensión del texto. La entrega es siempre en digital: Word con cambios, PDF o el formato que acordemos.</p>
       </div>
-      <div class="cond-card">
+      <div class="cond-card tilt-card">
         <p class="cond-tag">Resolución de dudas</p>
         <p class="cond-desc">Tras la entrega, tienes un periodo para consultarme dudas concretas sobre el contenido recibido. No incluye una nueva ronda de trabajo.</p>
       </div>
-      <div class="cond-card">
+      <div class="cond-card tilt-card">
         <p class="cond-tag">Cancelación</p>
         <p class="cond-desc">Puedes cancelar cuando quieras, por escrito. Si el trabajo ya ha comenzado, el pago inicial no es reembolsable, ya que corresponde al tiempo dedicado.</p>
       </div>
-      <div class="cond-card">
+      <div class="cond-card tilt-card">
         <p class="cond-tag">Confidencialidad</p>
         <p class="cond-desc">Tu manuscrito es y sigue siendo tuyo. No lo comparto con terceros ni lo uso para nada que no sea el servicio contratado.</p>
       </div>
-      <div class="cond-card">
+      <div class="cond-card tilt-card">
         <p class="cond-tag">Comunicación</p>
         <p class="cond-desc">Todo el proceso (presupuesto, dudas, entregas) se gestiona por email, salvo que acordemos otro canal contigo.</p>
       </div>
@@ -1612,7 +1706,7 @@
       <h2>Lo que dicen los autores con los que he trabajado</h2>
     </div>
     <div class="testimonials-grid">
-      <article class="t-card reveal">
+      <article class="t-card reveal tilt-card">
         <div class="stars" style="--pct:100%"><div class="stars-bg">★★★★★</div><div class="stars-fg">★★★★★</div></div>
         <p class="t-quote">El informe fue muy útil y está bien detallado. Su valoración es honesta y detecta fácilmente los agujeros de guion o los aspectos que se pueden mejorar. Me sirvió de mucha ayuda. ¡Gracias!</p>
         <div class="t-author">
@@ -1621,7 +1715,7 @@
         </div>
       </article>
 
-      <article class="t-card reveal">
+      <article class="t-card reveal tilt-card">
         <div class="stars" style="--pct:100%"><div class="stars-bg">★★★★★</div><div class="stars-fg">★★★★★</div></div>
         <p class="t-quote">Fabián es un profesional con criterio y que realiza de forma meticulosa, excelente y eficaz su trabajo. Si quieres mejorar tu obra de verdad, es una inversión que merece muchísimo la pena. Realmente te dará directrices claras y útiles para saber lo que necesitas mejorar. Y eso para un escritor es invaluable.</p>
         <div class="t-author">
@@ -1630,7 +1724,7 @@
         </div>
       </article>
 
-      <article class="t-card reveal">
+      <article class="t-card reveal tilt-card">
         <div class="stars" style="--pct:100%"><div class="stars-bg">★★★★★</div><div class="stars-fg">★★★★★</div></div>
         <p class="t-quote">Trabajar con Fabián es una experiencia fantástica, es preciso para aquellos autores que necesitan una guía en sus sistemas de fantasía, narrativa, personajes complejos. En mi caso, las correcciones me dejaron ver nuevas alternativas muy útiles para mi manuscrito, con bases más firmes para mejorar todos los puntos que flaqueaban mi novela centrándose en: argumento, personajes, erratas, la fluidez de la prosa y puntos a mejorar en la trama. Lo recomiendo sin dudas!</p>
         <div class="t-author">
@@ -1877,6 +1971,19 @@
     });
   }
 
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Stagger: dentro de cada contenedor, los .reveal hermanos se activan en cascada
+  const revealGroups = new Map();
+  document.querySelectorAll('.reveal').forEach(el=>{
+    const parent = el.parentElement;
+    if(!revealGroups.has(parent)) revealGroups.set(parent, []);
+    revealGroups.get(parent).push(el);
+  });
+  revealGroups.forEach(group=>{
+    group.forEach((el,i)=> el.style.setProperty('--d', Math.min(i,6)));
+  });
+
   const els = document.querySelectorAll('.reveal');
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{
@@ -1884,6 +1991,66 @@
     });
   },{threshold:0.12});
   els.forEach(el=>io.observe(el));
+
+  /* ---- Barra de progreso de scroll ---- */
+  const scrollProgress = document.getElementById('scrollProgress');
+  function updateScrollProgress(){
+    const h = document.documentElement;
+    const scrolled = h.scrollTop;
+    const max = h.scrollHeight - h.clientHeight;
+    const pct = max > 0 ? (scrolled / max) * 100 : 0;
+    if(scrollProgress) scrollProgress.style.width = pct + '%';
+    if(siteNav) siteNav.classList.toggle('scrolled', scrolled > 8);
+  }
+  document.addEventListener('scroll', updateScrollProgress, {passive:true});
+  updateScrollProgress();
+
+  /* ---- Contador animado para las cifras de "Sobre mí" ---- */
+  if(!prefersReducedMotion){
+    document.querySelectorAll('.fact .num').forEach(numEl=>{
+      const raw = numEl.textContent.trim();
+      const match = raw.match(/^(\d+)(.*)$/);
+      if(!match) return;
+      const target = parseInt(match[1], 10);
+      const suffix = match[2] || '';
+      let started = false;
+      const counterIo = new IntersectionObserver((entries)=>{
+        entries.forEach(entry=>{
+          if(entry.isIntersecting && !started){
+            started = true;
+            const duration = 900;
+            const startTime = performance.now();
+            function tick(now){
+              const progress = Math.min((now - startTime) / duration, 1);
+              const eased = 1 - Math.pow(1 - progress, 3);
+              numEl.textContent = Math.round(target * eased) + suffix;
+              if(progress < 1) requestAnimationFrame(tick);
+              else numEl.textContent = target + suffix;
+            }
+            requestAnimationFrame(tick);
+            counterIo.unobserve(numEl);
+          }
+        });
+      },{threshold:0.4});
+      counterIo.observe(numEl);
+    });
+  }
+
+  /* ---- Efecto tilt 3D suave al pasar el ratón por las tarjetas ---- */
+  if(!prefersReducedMotion && window.matchMedia('(hover: hover) and (pointer: fine)').matches){
+    document.querySelectorAll('.tilt-card').forEach(card=>{
+      const maxTilt = 6;
+      card.addEventListener('mousemove', (e)=>{
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        card.style.transform = `perspective(800px) rotateX(${(-y*maxTilt).toFixed(2)}deg) rotateY(${(x*maxTilt).toFixed(2)}deg) translateY(-2px)`;
+      });
+      card.addEventListener('mouseleave', ()=>{
+        card.style.transform = '';
+      });
+    });
+  }
 
   // --- Tracking adicional: CTAs, navegación, redes, volver arriba ---
   function track(name, params){
