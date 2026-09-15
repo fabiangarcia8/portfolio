@@ -217,6 +217,19 @@
   .cond-desc{margin-top:8px;font-size:0.92rem;color:var(--card-ink);line-height:1.55;opacity:0.85;}
   .pay-note{margin-top:24px;font-size:0.85rem;color:var(--ink-soft);opacity:0.85;}
 
+  /* REFERIDOS */
+  .referral-card{
+    border:1px solid var(--card-line);border-left:3px solid var(--magenta);
+    border-radius:6px;padding:32px 34px;background:var(--card-bg);
+    box-shadow:0 16px 34px -22px rgba(0,0,0,0.55);
+    display:flex;flex-direction:column;gap:22px;align-items:flex-start;
+  }
+  @media(min-width:720px){
+    .referral-card{flex-direction:row;align-items:center;justify-content:space-between;gap:36px;}
+  }
+  .referral-desc{color:var(--card-ink);font-size:0.98rem;line-height:1.6;opacity:0.9;max-width:56ch;}
+  .referral-card .btn{flex-shrink:0;}
+
   details.pricing{margin-top:22px;border-top:1px solid rgba(255,255,255,0.14);padding-top:16px;}
   details.pricing summary{
     cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:0.78rem;
@@ -1732,6 +1745,20 @@
           <div class="t-book">Autora de «Itshar»</div>
         </div>
       </article>
+    </div>
+  </div>
+</section>
+
+<section id="referidos">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Recomiéndame</p>
+      <h2>¿Conoces a alguien que necesite un editor o coach literario?</h2>
+      <p>Si me recomiendas a alguien y esa persona termina trabajando conmigo, tú te llevas un descuento en tu próximo servicio. Es mi forma de dar las gracias a quien me ayuda a llegar a más autores.</p>
+    </div>
+    <div class="referral-card reveal">
+      <p class="referral-desc">Solo dile a esa persona que te mencione a ti cuando me escriba — yo me encargo del resto. Si prefieres avisarme tú directamente, también puedes.</p>
+      <a class="btn btn-primary" href="mailto:fabiangleditor@gmail.com?subject=Quiero%20recomendarte%20a%20alguien&body=Hola%20Fabi%C3%A1n%2C%0A%0AQuiero%20recomendarte%20a%20alguien%3A%0A%0ANombre%20de%20la%20persona%3A%20%0AServicio%20que%20le%20interesa%3A%20%0A%0A%C2%A1Gracias!">Quiero recomendarte a alguien</a>
     </div>
   </div>
 </section>
